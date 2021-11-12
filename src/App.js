@@ -10,6 +10,8 @@ class App extends Component {
       monsters: [],
       searchTerm: ''
     }
+
+    // this.handleChange = this.handleChange.bind(this)
   }
 
   componentDidMount() {
@@ -18,12 +20,7 @@ class App extends Component {
     .then(users => this.setState({monsters: users}))
   }
 
-  searchMonster = (e) => {
-    const word = e.target.value
-    this.setState({searchTerm: word})
-    const filteredMonsters = this.state.monsters.filter(monster => monster.name === word)
-    this.setState({monsters: filteredMonsters})
-  }
+  handleChange = e => this.setState({searchTerm: e.target.value})
 
   render() {
     const {monsters, searchTerm} = this.state
@@ -31,7 +28,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <SearchBox placeholder="Search Monster..." handleChange={e => this.setState({searchTerm: e.target.value})} />
+        <SearchBox placeholder="Search Monster..." handleChange={this.handleChange} />
         <CardList monsters={filteredMonsters} />
       </div>
     );
